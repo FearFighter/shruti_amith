@@ -173,7 +173,19 @@
 				</div>
 				<div class="row animate-box">
 					<div class="col-md-10 col-md-offset-1">
-						<form class="form-inline">
+						<form id="comments" class="form-inline">
+							<div class="col-md-4 col-sm-4">
+								<div class="form-group">
+									<label for="subject" class="sr-only">Subject</label>
+									<input type="subject" class="form-control" id="subject" placeholder="Write Something">
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4">
+								<div class="form-group">
+									<label for="description" class="sr-only">Comment</label>
+									<textarea type="description" class="form-control" id="description" placeholder="Write Something More"></textarea>
+								</div>
+							</div>
 							<div class="col-md-4 col-sm-4">
 								<div class="form-group">
 									<label for="name" class="sr-only">Name</label>
@@ -181,13 +193,7 @@
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-4">
-								<div class="form-group">
-									<label for="email" class="sr-only">Comment</label>
-									<textarea type="email" class="form-control" id="email" placeholder="Write Something"></textarea>
-								</div>
-							</div>
-							<div class="col-md-4 col-sm-4">
-								<button type="submit" class="btn btn-primary btn-block">Comment</button>
+								<button id='comment_btn' type="submit" class="btn btn-primary btn-block">Comment</button>
 							</div>
 						</form>
 					</div>
@@ -230,6 +236,37 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
 	<!-- jQuery -->
 	<script src="dist/scripts.min.js"></script>
+
+	<script>
+		const proxyurl = "https://cors-anywhere.herokuapp.com/";
+		const url = "http://18.222.252.163:8080/comments";
+
+		$(document).ready(function() {
+		  $("#comment_btn").click(function(e) {
+		    var data = {
+				name: $('#name').val(),
+				subject: $('#subject').val(),
+				description: $('#description').val()
+			  }
+
+			e.preventDefault();
+			$.ajax({
+			  type: "POST",
+			  url: proxyurl + url,
+			  contentType: 'application/json',
+			  dataType: "json",
+			  data: JSON.stringify(data),
+			  success: function(result) {
+				console.log('ok');
+				document.getElementById("comments").reset();
+			  },
+			  error: function(result) {
+				console.log('error');
+			  }
+			});
+		  });
+  		});
+	</script>
 	</body>
 </html>
 
