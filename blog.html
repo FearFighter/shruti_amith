@@ -119,8 +119,6 @@
 				</div>
 			</div>
 			<div id='comments_container' class="container">
-				<div id='inner_container' class="row row-bottom-padded-md">
-				</div>
 				<!--<div class="row">-->
 					<!--<div class="col-md-4 col-md-offset-4 text-center animate-box">-->
 						<!--<a href="#" class="btn btn-primary btn-lg">More Posts</a>-->
@@ -209,7 +207,7 @@
 		const url = "http://18.222.252.163:8080/comments/all";
 
 		function block0(html) {
-			return '<div id='inner_container' class="row row-bottom-padded-md">' + html + '</div>';
+			return '<div id="inner_container" class="row row-bottom-padded-md">' + html + '</div>';
 		}
 
 		function block1(html) {
@@ -217,11 +215,11 @@
 		}
 
 		function block2(html) {
-			return '<div class="fh5co-blog animate-box">' + html + '</div>';
+			return '<div class="fh5co-blog">' + html + '</div>';
 		}
 
 		function block3(html) {
-			return '<div class="blog-text effect2">' + html + '</div>';
+			return '<div class="blog-text effect5">' + html + '</div>';
 		}
 
 		function block4(html) {
@@ -253,8 +251,8 @@
 				  	 listItem += block1_data;
 				  });
 				  block0_data = block0(listItem);
-				  $("#inner_container").html(block1_data);
-				  console.log($("#comments_container").html());
+				  $("#comments_container").html(block0_data);
+				  console.log(block0_data);
 			  },
 			  error: function(result) {
 				console.log(result);
