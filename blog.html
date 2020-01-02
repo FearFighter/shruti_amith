@@ -190,9 +190,6 @@
 				</div>
 			</div>
 		</footer>
-
-
-
 	</div>
 	<!-- END fh5co-page -->
 
@@ -209,7 +206,7 @@
 		const url = "http://18.222.252.163:8080/comments/all";
 
 		function block0(html) {
-			return '<div id="inner_container" class="row row-bottom-padded-md">' + html + '</div>';
+			return '<div id="inner_container" class="row">' + html + '</div>';
 		}
 
 		function block1(html) {
@@ -243,18 +240,21 @@
 			  url: proxyurl+url,
 			  dataType: 'json',
 			  success: function(result) {
-				  var listItem = "";
-				  $.each( result, function( index, data ) {
-				  	 filled_data = data_fill(data);
-				  	 block4_data = block4(filled_data);
-				  	 block3_data = block3(block4_data);
-				  	 block2_data = block2(block3_data);
-				  	 block1_data = block1(block2_data);
-				  	 listItem += block1_data;
+				  var array_chunks = (array, chunk_size) => Array(Math.ceil(array.length / chunk_size)).fill().map((_, index) => index * chunk_size).map(begin => array.slice(begin, begin + chunk_size));
+				  $.each(array_chunks(result,3), function(index,chunk) {
+				    console.log("chunk");
+				    console.log(chunk);
+				    var listItem = "";
+				  	$.each(chunk, function(index,data) {
+						 filled_data = data_fill(data);
+						 block4_data = block4(filled_data);
+						 block3_data = block3(block4_data);
+						 block2_data = block2(block3_data);
+						 block1_data = block1(block2_data);
+						 listItem += block1_data;
+				  	 });
+				  	 $("#comments_container").append(block0(listItem));
 				  });
-				  block0_data = block0(listItem);
-				  $("#comments_container").html(block0_data);
-				  console.log(block0_data);
 			  },
 			  error: function(result) {
 				console.log(result);
